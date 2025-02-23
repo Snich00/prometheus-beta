@@ -25,21 +25,21 @@ def convert_to_alternating_dot_case(input_string):
     
     # Convert to alternating dot case
     result = []
-    word_index = 0
+    uppercase_next = False  # Always start with lowercase
     
     for char in input_string:
         if char.isspace():
             result.append('.')
-            word_index = 0  # Reset word index after space
+            uppercase_next = True  # Reset uppercase flag after space
             continue
         
-        # Apply case based on specific pattern
-        if word_index % 2 == 0:
-            transformed_char = char.lower()
-        else:
+        # Apply case based on flag
+        if uppercase_next:
             transformed_char = char.upper()
+        else:
+            transformed_char = char.lower()
         
         result.append(transformed_char)
-        word_index += 1
+        uppercase_next = not uppercase_next
     
     return ''.join(result)
