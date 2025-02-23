@@ -21,19 +21,20 @@ def convert_to_alternating_dot_case(input_string):
     
     # Convert to alternating dot case
     result = []
-    for i, char in enumerate(input_string):
-        # Determine case based on index
-        if i % 2 == 0:
-            # First, third, fifth chars should be like original first char
-            transformed_char = char.lower() if input_string[0].islower() else char.upper()
-        else:
-            # Second, fourth, sixth chars should be opposite
-            transformed_char = char.upper() if input_string[0].islower() else char.lower()
-        
-        # Replace spaces with dots
+    start_with_lower = True  # First conversion always starts with lowercase
+    
+    for char in input_string:
         if char.isspace():
             result.append('.')
+            continue
+        
+        # Alternate between lowercase and uppercase
+        if start_with_lower:
+            transformed_char = char.lower()
         else:
-            result.append(transformed_char)
+            transformed_char = char.upper()
+        
+        result.append(transformed_char)
+        start_with_lower = not start_with_lower
     
     return ''.join(result)
