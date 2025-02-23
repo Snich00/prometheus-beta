@@ -19,14 +19,18 @@ def convert_to_alternating_dot_case(input_string):
     if not input_string:
         return ""
     
+    # Handle single character
+    if len(input_string) == 1:
+        return input_string.lower()
+    
     # Convert to alternating dot case
     result = []
-    upper_next = input_string[0].islower()
+    upper_next = False  # Always start lowercase
     
     for char in input_string:
         if char.isspace():
             result.append('.')
-            upper_next = True  # Reset alternating case after space
+            upper_next = False  # Reset to lowercase
             continue
         
         # Apply case based on upper_next flag
