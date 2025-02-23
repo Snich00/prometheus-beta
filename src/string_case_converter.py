@@ -21,22 +21,29 @@ def convert_to_alternating_dot_case(input_string):
     
     # Convert to alternating dot case
     result = []
-    first_char_lower = True  # Assuming first character is always lowercase
-    word_index = 0
+    start_with_lower = True  # Always start with lower case
+    last_was_space = False
     
     for char in input_string:
         if char.isspace():
             result.append('.')
-            word_index = 0  # Reset word index for new word
+            last_was_space = True
             continue
         
-        # Apply case based on word index and first char case
-        if first_char_lower:
-            transformed_char = char.lower() if word_index % 2 == 0 else char.upper()
+        # Determine case: 
+        # - If after a space, reset to lower
+        # - Otherwise, alternate
+        if last_was_space:
+            start_with_lower = True
+            last_was_space = False
+        
+        # Apply case based on flag
+        if start_with_lower:
+            transformed_char = char.lower()
         else:
-            transformed_char = char.upper() if word_index % 2 == 0 else char.lower()
+            transformed_char = char.upper()
         
         result.append(transformed_char)
-        word_index += 1
+        start_with_lower = not start_with_lower
     
     return ''.join(result)
