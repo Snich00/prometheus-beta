@@ -26,6 +26,7 @@ def convert_to_alternating_dot_case(input_string):
     for char in input_string:
         if char.isspace():
             result.append('.')
+            start_with_lower = True  # Reset for the next non-space character
             continue
         
         # Alternate between lowercase and uppercase
